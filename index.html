@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethno Varna</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Hide scrollbars for all browsers */
+
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-size: cover;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: all 1s ease-in-out;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .hero-slide.active {
+            left: 0;
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .hero-slide .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .slider-navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .nav-button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+
+        /* Dots Navigation */
+        .dots-navigation {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 2;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+    <!-- Navigation Bar -->
+    <nav class="bg-white py-4 shadow fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-6 flex items-center justify-between lg:justify-center">
+            <!-- Menu Icon for Mobile View -->
+            <div class="block sm:hidden">
+                <button id="menu-toggle" class="text-gray-700 hover:text-gray-900">
+                    <!-- Menu Icon -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation List -->
+            <div class="hidden sm:flex items-center space-x-6 justify-center">
+                <a href="#home" class="text-gray-700 hover:text-red-500 font-medium nav-link">HOME</a>
+                <a href="#about_us" class="text-gray-700 hover:text-red-500 font-medium nav-link">ABOUT US</a>
+                <a href="#explore_us" class="text-gray-700 hover:text-red-500 font-medium nav-link">EXPLORE</a>
+                <a href="#getintouch" class="text-gray-700 hover:text-red-500 font-medium nav-link">CONTACT US</a>
+                <!-- <a href="#" class="text-gray-700 hover:text-red-500 font-medium"></a> -->
+                <a href="#" class="text-gray-700 hover:text-red-500 font-medium nav-link">BLOG</a>
+                <a href="#" class="text-gray-700 hover:text-red-500 font-medium nav-link">GIFT CARD</a>
+            </div>
+
+            <!-- Mobile Navigation List -->
+            <div id="mobile-menu" class="absolute top-0 left-0 w-full bg-white shadow-lg sm:hidden hidden">
+                <div class="flex flex-col space-y-2 px-6 py-4">
+                    <!-- Exit Icon -->
+                    <button id="menu-close" class="self-end text-gray-700 hover:text-gray-900">
+                        <!-- Exit Icon -->
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <a href="#home" class="text-gray-700 hover:text-red-500 font-medium nav-link ">HOME</a>
+                    <a href="#about_us" class="text-gray-700 hover:text-red-500 font-medium nav-link">ABOUT US</a>
+                    <a href="#explore_us" class="text-gray-700 hover:text-red-500 font-medium nav-link">EXPLORE</a>
+                    <a href="#getintouch" class="text-gray-700 hover:text-red-500 font-medium nav-link">CONTACT US</a>
+                    <!-- <a href="#meet-the-team" class="text-gray-700 hover:text-red-500 font-medium">MEET THE TEAM</a> -->
+                    <a href="#blog" class="text-gray-700 hover:text-red-500 font-medium nav-link">BLOG</a>
+                    <a href="#gift-card" class="text-gray-700 hover:text-red-500 font-medium nav-link">GIFT CARD</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Slider Section -->
+    <section class="hero-slider" id="home" >
+        <!-- Slide 1 -->
+        <div class="hero-slide active"
+            style="background-image: url('https://img.freepik.com/premium-photo/bohemian-chic-autumn-woman-outfit-trendy-cozy-palette_802234-23029.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid');">
+            <div class="content max-w-lg mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Innovative Solutions</h2>
+                <p class="text-lg md:text-xl mb-6">We provide cutting-edge technology solutions to take your business to
+                    the next level.</p>
+                <a href="#"
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg text-lg font-medium">Learn
+                    More</a>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide"
+            style="background-image: url('https://img.freepik.com/free-photo/celebration-navratri-deity_23-2151219971.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid');">
+            <div class="content max-w-lg mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Expert Team</h2>
+                <p class="text-lg md:text-xl mb-6">Our team of experts are dedicated to delivering exceptional results
+                    for
+                    your business.</p>
+                <a href="#"
+                    class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg text-lg font-medium">Our
+                    Team</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide"
+            style="background-image: url('https://img.freepik.com/premium-photo/traditional-stylish-indian-dress-with-unique-embroidery-design-presenting-fashion-with-culture_784842-33601.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid');">
+            <div class="content max-w-lg mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Trusted Partnerships</h2>
+                <p class="text-lg md:text-xl mb-6">We build long-lasting partnerships with our clients based on trust
+                    and
+                    excellence.</p>
+                <a href="#"
+                    class="bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg text-lg font-medium">Contact
+                    Us</a>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="slider-navigation">
+            <div class="nav-button prev">&#10094;</div>
+            <div class="nav-button next">&#10095;</div>
+        </div>
+
+        <!-- Dots Navigation -->
+        <div class="dots-navigation">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+        </div>
+    </section>
+
+    <h3 id="about_us" class="text-3xl font-bold text-center text-gray-800 mb-4 py-10">About Us</h3>
+    <section class="relative bg-cover bg-center h-96" 
+        style="background-image: url('https://img.freepik.com/premium-photo/trendsetters-local-fashion-ar-generative-ai_1198283-117564.jpg?semt=ais_hybrid');">
+        <div class="absolute inset-0 bg-black opacity-50"></div> <!-- Overlay for text contrast -->
+        <div class="relative flex items-center justify-center h-full text-center text-white p-6">
+            <div>
+                <h1 class="text-4xl font-bold mb-4">Welcome to Ethno Varna</h1>
+                <p class="text-lg">Discover our exclusive collection of stylish and elegant outfits. Explore our latest
+                    trends and find the perfect look for any occasion.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <div class="bg-white py-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div
+                    class="flex items-center space-x-4 transform hover:-translate-y-2 transition duration-300 ease-in-out" data-aos="fade-down">
+                    <div class="text-indigo-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20 13V16a1 1 0 01-1 1h-3v-4h3a1 1 0 011 1zM4 6V4h7v2H4z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4
+                            class="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-900 transition duration-300 ease-in-out">
+                            100% Fashion</h4>
+                        <p class="text-gray-600">We bring you the latest trends.</p>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div
+                    class="flex items-center space-x-4 transform hover:-translate-y-2 transition duration-300 ease-in-out" data-aos="fade-down">
+                    <div class="text-indigo-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 7h6M9 12h6m-4 5h4M5 20h14a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4
+                            class="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-900 transition duration-300 ease-in-out">
+                            Customization</h4>
+                        <p class="text-gray-600">Tailored just for you.</p>
+                    </div>
+                </div>
+                <!-- Feature 3 -->
+                <div
+                    class="flex items-center space-x-4 transform hover:-translate-y-2 transition duration-300 ease-in-out" data-aos="fade-down">
+                    <div class="text-indigo-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4
+                            class="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-900 transition duration-300 ease-in-out">
+                            Stand out with unique styles.</h4>
+                        <p class="text-gray-600">Stand out with our unique styles.</p>
+                    </div>
+                </div>
+                <!-- Feature 4 -->
+                <div
+                    class="flex items-center space-x-4 transform hover:-translate-y-2 transition duration-300 ease-in-out" data-aos="fade-down">
+                    <div class="text-indigo-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h3l3 9h-6v-4h-3l3-5z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4
+                            class="text-xl font-semibold text-gray-800 mb-2 group-hover:text-indigo-900 transition duration-300 ease-in-out">
+                            Iconic Designs</h4>
+                        <p class="text-gray-600">Timeless fashion icons.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  -->
+    <h3 id="explore_us" class="text-3xl font-bold text-center text-gray-800 mb-4 py-10">Explore Us</h3>
+    <Section class="mx-auto container flex justify-center items-center py-10 px-4 sm:px-6 2xl:px-0">
+        <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+        <div class="flex flex-col lg:flex-row justify-center items-center space-y-6 lg:space-y-0">
+            <div class="w-80 sm:w-auto flex flex-col justify-start items-start">
+                <div>
+                    <p class="text-3xl xl:text-4xl font-semibold leading-9 text-gray-800 dark:text-white">Discover Our
+                        Exclusive Collection</p>
+                </div>
+                <div class="mt-4 lg:w-4/5 xl:w-3/5">
+                    <p class="text-base leading-6 text-gray-600 dark:text-white">From elegant dresses to casual wear,
+                        our collection features high-quality garments crafted with care and precision.</p>
+                </div>
+                <div class="mt-16 w-full">
+                    <button
+                        class="px-4 bg-gray-900 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200  flex justify-between items-center w-full lg:w-72 h-14 text-white hover:bg-gray-700 focus:ring-2 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 dark:hover:bg-gray-100">
+                        <p class="text-xl font-medium leading-5 ">See More</p>
+                        <svg class="dark:text-gray-900" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.66663 16H25.3333" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20 21.3333L25.3333 16" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20 10.6667L25.3333 16" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div
+                class="flex flex-col sm:flex-row jusitfy-center items-center sm:space-x-5 xl:space-x-8 space-y-4 sm:space-y-0">
+                <div class="">
+                    <img class="hidden lg:block" data-aos="fade-down"
+                        src="https://img.freepik.com/premium-photo/plan-stylish-rosh-diwali-traditional-wear-displa-generative-ai_1198249-76795.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid"
+                        alt="sofa" />
+                    <img class="w-80 sm:w-auto lg:hidden" data-aos="fade-down"
+                        src="https://img.freepik.com/free-photo/pretty-girl-choosing-clothes_23-2147669919.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid"
+                        alt="sofa" />
+                </div>
+                <div
+                    class="flex flex-col justify-center items-center space-y-4 sm:space-y-0 sm:space-y-5 lg:space-y-5 xl:space-y-8">
+                    <div>
+                        <img class="hidden lg:block" data-aos="fade-down"
+                            src="https://img.freepik.com/premium-photo/indian-womens-fashion-dresses-showcased-hangers-retail-shop-concept-indian-fashion-women_873668-15192.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid"
+                            alt="chairs" />
+                        <img class="w-80 sm:w-auto lg:hidden" data-aos="fade-down"
+                            src="https://img.freepik.com/premium-photo/traditional-stylish-indian-dress-with-unique-embroidery-design-presenting-fashion-with-culture_919955-21663.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid"
+                            alt="chairs" />
+                    </div>
+                    <div>
+                        <img class="hidden lg:block" data-aos="fade-down"
+                            src="https://img.freepik.com/premium-photo/closeup-traditional-diwali-clothing-jewelry-laid-out-showcasing-vibrant-colors-intricat_894218-26551.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid"
+                            alt="chairs" />
+                        <img class="w-80 sm:w-auto lg:hidden" data-aos="fade-down"
+                            src="https://img.freepik.com/free-photo/view-person-creating-digital-diy-craft-content_23-2151515840.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid"
+                            alt="chairs" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Section>
+
+
+
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-4 py-10">The Founder And Creative Force Behind</h3>
+    <section class="bg-white dark:bg-gray-900">
+        <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Discover Your Signature Style at Ethno Varna</h2>
+                <p class="mb-4">From an early age, I was captivated by the beauty of fabrics, the elegance of design, and the way fashion can transform how we feel and express ourselves. This boutique is the culmination of my dream to share that passion with others, offering a carefully curated selection of clothing, accessories, and footwear that reflects both timeless elegance and contemporary trends.</p>
+                <p>Every piece in my boutique is chosen with care, ensuring it meets the highest standards of quality and style. I believe that fashion should be accessible, empowering, and, most importantly, a true reflection of who you are. Whether you're dressing for a special occasion or looking to add a new staple to your wardrobe, I’m here to help you find something that not only looks great but feels right for you</p>
+           
+                <div class="flex justify-start items-start space-x-6 mt-6">
+                    <a href="https://whatsapp.com/channel/0029Va71EPf9Bb5pP3xkfZ0X"
+                        class="social-icon inline-block transform transition-transform duration-300 hover:scale-110">
+                        <img src="asserts/whatsapp.png" alt="Keerthiba Artistry whatsapp makeover by keerthy" class="h-8 w-8">
+                    </a>
+                    <a href="https://www.instagram.com/makeover_by__keerthy?igsh=MWJjendzdzVoZmJwYw=="
+                        class="social-icon inline-block transform transition-transform duration-300 hover:scale-110">
+                        <img src="asserts/instagram.png" alt="Keerthiba Artistry Instagram makeover_by__keerthy" class="h-8 w-8">
+                    </a>
+                    <a href="tel:+1234567890" class="social-icon inline-block transform transition-transform duration-300 hover:scale-110">
+                        <img src="asserts/telephone-call.png" alt="Call Me" class="h-8 w-8">
+                    </a>
+                </div>
+                
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <img class="w-full rounded-lg" src="asserts/EVlogo.jpg" data-aos="fade-down" alt="office content 1">
+                <img class="mt-4 w-full lg:mt-10 rounded-lg" data-aos="fade-down" src="https://img.freepik.com/free-photo/young-woman-beautiful-yellow-dress_1303-17542.jpg?ga=GA1.1.1197493033.1718601955&semt=ais_hybrid" alt="office content 2">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+<section id="getintouch">
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-4 py-10">Get In Touch</h3>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 p-10">
+        <div class="relative" data-aos="fade-up">
+            <input type="text" placeholder="Name"
+                class="w-full px-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:border-yellow-500 transition duration-200">
+        </div>
+        <div class="relative" data-aos="fade-up">
+            <input type="email" placeholder="Email"
+                class="w-full px-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:border-yellow-500 transition duration-200">
+        </div>
+        <div class="relative" data-aos="fade-up">
+            <input type="tel" placeholder="Phone"
+                class="w-full px-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:border-yellow-500 transition duration-200">
+        </div>
+        <div class="relative" data-aos="fade-up">
+            <input type="number" placeholder="Pincode"
+                class="w-full px-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:border-yellow-500 transition duration-200">
+        </div>
+        <div class="relative" data-aos="fade-up">
+            <textarea rows="4" placeholder="Address"
+                class="w-full px-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:border-yellow-500 transition duration-200"></textarea>
+        </div>
+        <div class="relative" data-aos="fade-up">
+            <textarea rows="4" placeholder="Message"
+                class="w-full px-4 py-2 border border-gray-300 bg-gray-200 rounded-md focus:outline-none focus:border-yellow-500 transition duration-200"></textarea>
+        </div>
+        <div class="sm:col-span-2 text-right" >
+            <button title="Keerthiba Artistry Contact Button" aria-label="Message"
+                class="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none transition duration-200">Send
+                Message</button>
+        </div>
+    </div>
+</section>
+   
+
+
+
+    
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Selectors
+        const slides = document.querySelectorAll('.hero-slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const dots = document.querySelectorAll('.dot');
+
+        let currentSlide = 0;
+        let slideInterval;
+
+        // Functions
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        };
+
+        const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        };
+
+        const prevSlide = () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        };
+
+        const startSlideShow = () => {
+            slideInterval = setInterval(nextSlide, 5000);
+        };
+
+        const pauseSlideShow = () => {
+            clearInterval(slideInterval);
+        };
+
+        // Event Listeners
+        nextBtn.addEventListener('click', () => {
+            pauseSlideShow();
+            nextSlide();
+            startSlideShow();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            pauseSlideShow();
+            prevSlide();
+            startSlideShow();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                pauseSlideShow();
+                currentSlide = parseInt(dot.getAttribute('data-slide'));
+                showSlide(currentSlide);
+                startSlideShow();
+            });
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+        startSlideShow();
+
+
+        // JavaScript for toggling mobile menu
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            var menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // JavaScript for closing the mobile menu when an item is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(function (item) {
+            item.addEventListener('click', function () {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // JavaScript for closing the mobile menu when the exit icon is clicked
+        document.getElementById('menu-close').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        });
+
+
+        // Smooth scroll
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(function (navLink) {
+                navLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        // Remove 'active' class from all links
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        // Add 'active' class to the clicked link
+                        this.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000, // Duration of animation in milliseconds
+  });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethana Vera</title>
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: all 1s ease-in-out;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .hero-slide.active {
+            left: 0;
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .hero-slide .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .slider-navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .nav-button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .nav-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Dots Navigation */
+        .dots-navigation {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 2;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+
+    <!-- Announcement Bar -->
+    <header class="bg-red-500 text-center py-3">
+        <span class="text-white font-semibold">FLAT 10% OFF ALL ACROSS THE WEBSITE</span>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white py-4 shadow">
+        <div class="container mx-auto px-6 flex justify-center space-x-6">
+            <div class="relative group">
+                <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">SHOP</a>
+                <div
+                    class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-32 bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 invisible group-hover:visible">
+                    <a href="/men" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Men</a>
+                    <a href="/women" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Women</a>
+                    <a href="/accessories" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Accessories</a>
+                </div>
+            </div>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">NEW ARRIVALS</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">COLLECTIONS</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">BESTSELLERS</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">MEET THE TEAM</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">BLOG</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">GIFT CARD</a>
+        </div>
+    </nav>
+
+    <!-- Hero Slider Section -->
+    <section class="hero-slider">
+
+        <!-- Slide 1 -->
+        <div class="hero-slide active"
+            style="background-image: url('https://images.unsplash.com/photo-1512445340845-7a8110941f74?fit=crop&w=1950&q=80');">
+            <div class="content max-w-lg mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Innovative Solutions</h2>
+                <p class="text-lg md:text-xl mb-6">We provide cutting-edge technology solutions to take your business to
+                    the next level.</p>
+                <a href="#"
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg text-lg font-medium">Learn
+                    More</a>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide"
+            style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?fit=crop&w=1950&q=80');">
+            <div class="content max-w-lg mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Expert Team</h2>
+                <p class="text-lg md:text-xl mb-6">Our team of experts are dedicated to delivering exceptional results for
+                    your business.</p>
+                <a href="#"
+                    class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg text-lg font-medium">Our
+                    Team</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide"
+            style="background-image: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?fit=crop&w=1950&q=80');">
+            <div class="content max-w-lg mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">Trusted Partnerships</h2>
+                <p class="text-lg md:text-xl mb-6">We build long-lasting partnerships with our clients based on trust and
+                    excellence.</p>
+                <a href="#"
+                    class="bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg text-lg font-medium">Contact
+                    Us</a>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="slider-navigation">
+            <div class="nav-button prev">&#10094;</div>
+            <div class="nav-button next">&#10095;</div>
+        </div>
+
+        <!-- Dots Navigation -->
+        <div class="dots-navigation">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+        </div>
+
+    </section>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Selectors
+        const slides = document.querySelectorAll('.hero-slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const dots = document.querySelectorAll('.dot');
+
+        let currentSlide = 0;
+        let slideInterval;
+
+        // Functions
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        };
+
+        const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        };
+
+        const prevSlide = () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        };
+
+        const startSlideShow = () => {
+            slideInterval = setInterval(nextSlide, 5000);
+        };
+
+        const pauseSlideShow = () => {
+            clearInterval(slideInterval);
+        };
+
+        // Event Listeners
+        nextBtn.addEventListener('click', () => {
+            pauseSlideShow();
+            nextSlide();
+            startSlideShow();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            pauseSlideShow();
+            prevSlide();
+            startSlideShow();
+        });
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                pauseSlideShow();
+                currentSlide = parseInt(dot.getAttribute('data-slide'));
+                showSlide(currentSlide);
+                startSlideShow();
+            });
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+        startSlideShow();
+    </script>
+
+</body>
+
+</html>
